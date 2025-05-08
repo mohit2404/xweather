@@ -22,6 +22,7 @@ function App() {
   };
 
   const getWeatherData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `https://api.weatherapi.com/v1/current.json`,
@@ -33,9 +34,11 @@ function App() {
         }
       );
       setWeatherData(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data", error);
       alert("Failed to fetch weather data");
+      setLoading(false);
     }
   };
 
@@ -88,6 +91,7 @@ function App() {
         {loading && <p>Loading data...</p>}
         {weatherData && (
           <div
+            className="weather-cards"
             style={{
               display: "flex",
               flexDirection: "column",
